@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">واژه نامه مدیریت</string>
+    <string name="action_settings">Settings</string>
+    <string name="search">جستجو دو زبانه</string>
+    <string name="enter">جستجو...</string>
+ <string name="share_using"> دانلود نسخه آخر واژه نامه مدیریت از کافه بازار
+\n
+        http://cafebazaar.ir/app/?id=com.managmentdic</string>
+
+    <string name="searchhint">جستجو</string>
+    <string name="downloadVazhed">دیکشنری واژه برای 38 رشته تخصصی</string>
+    <string name="speechSpeed">انتخاب سرعت تلفظ</string>
+    <string name="settingTitle">تنظیمات</string>
+    <string name="Favs">مورد علاقه ها</string>
+    <string name="donat">حمایت از برنامه</string>
+    <string name="sharee">معرفی به دوستان</string>
+    <string name="comment">ثبت نظر</string>
+    <string name="profile">واژه نامه</string>
+    <string name="exit">بستن</string>
+    <string name="about">ارتباط با توسعه دهنده</string>
+    <string name="tryAgaain">مجددا تلاش کنید...</string>
+
+
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="docomment">آیا مایل به ثبت نظر خود هستید؟</string>
+    <string name="send_vocab">ارسال لغت</string>
+    <string name="english">English</string>
+    <string name="changeLanguage">تغییر زبان</string>
+    <string name="bazar_not_installed">کافه بازار روی گوشی شما نصب نشده است.</string>
+</resources>

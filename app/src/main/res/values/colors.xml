@@ -1,0 +1,27 @@
+<resources>
+
+    <color name="black_overlay">#66000000</color>
+
+    <color name="colorPrimary">#EEE</color>
+    <color name="colorToolbar">#2196F3</color>
+    <color name="colorPrimaryDark">#807e7e</color>
+    <color name="colorAccent">#2196f3</color>
+    <color name="textColorPrimary">#000</color>
+    <color name="windowBackground">#FFF</color>
+    <color name="statusBarColor">#c1a9a9</color>
+    <color name="navigationBarColor">#000</color>
+    <color name="markedtext">#f60808</color>
+    <color name="unmarkedtext">#000</color>
+    <color name="textcolor">#000</color>
+    <color name="searchback">#01579B</color>
+    <color name="material_drawer_selected_text">#000</color>
+
+    <color name="backSearch">#777777</color>
+
+    <color name="selectedLang">#FEA864</color>
+
+    <!--    <color name="my_blue">#3498DB</color>
+        <color name="my_green">#77D065</color>
+        <color name="my_purple">#B455B6</color>
+        <color name="my_gray">#738182</color>-->
+</resources>
