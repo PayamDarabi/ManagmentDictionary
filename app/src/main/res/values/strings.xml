@@ -28,4 +28,7 @@
     <string name="english">English</string>
     <string name="changeLanguage">تغییر زبان</string>
     <string name="bazar_not_installed">کافه بازار روی گوشی شما نصب نشده است.</string>
+    <string name="high_speed">زیاد</string>
+    <string name="low_speed">کم</string>
+    <string name="selectAccent">انتخاب لهجه تلفط</string>
 </resources>

@@ -15,16 +15,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
         android:background="@color/windowBackground"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
-        <View
-
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="#cccccc"></View>
         <com.managmentdic.customView.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,16 +29,48 @@
             android:text="@string/settingTitle"
             android:textColor="@color/colorToolbar"
             android:textSize="22sp"
-
+            android:layout_alignParentTop="true"
             app:customFont="IRKoodak.ttf" />
-
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:layout_weight="1"
-        >
+            android:layout_height="wrap_content">
+            <com.managmentdic.customView.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/selectAccent"
+                android:id="@+id/txt_accent"
+                android:gravity="right|top"
+                android:textSize="16sp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
+                app:customFont="IRKoodak.ttf"
+                android:layout_alignParentEnd="true" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.502"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.498" />
+
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@color/gray_light" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
             <com.managmentdic.customView.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -52,21 +78,12 @@
                 android:text="@string/speechSpeed"
                 android:id="@+id/textView"
                 android:gravity="right|top"
-                android:textSize="20sp"
+                android:textSize="16sp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
                 app:customFont="IRKoodak.ttf"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="18dp" />
-   <!-- <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner"
-        android:layout_marginTop="18dp"
-        android:gravity="left|top"
+                android:layout_alignParentEnd="true" />
 
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        />-->
             <com.github.channguyen.rsv.RangeSliderView
                 android:id="@+id/rsv_speed"
                 android:layout_marginTop="50dp"
@@ -82,7 +99,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="زیاد"
+                android:text="@string/high_speed"
                 android:textSize="16sp"
                 app:customFont="IRKoodak.ttf"
                 android:id="@+id/textView2"
@@ -95,7 +112,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="کم"
+                android:text="@string/low_speed"
                 android:id="@+id/textView3"
                 android:gravity="right|top"
                 android:textSize="16sp"

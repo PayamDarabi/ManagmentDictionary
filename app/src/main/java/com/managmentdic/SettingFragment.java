@@ -6,13 +6,21 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.github.channguyen.rsv.RangeSliderView;
+import com.managmentdic.adapters.MySpinnerAdapter;
+
+import java.util.Arrays;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +31,8 @@ public class SettingFragment extends Fragment {
     View view;
     SharedPreferences.Editor editor;
     SharedPreferences prefs;
+    String[] accents = { "آمریکایی", "انگلیسی"};
+
     private RangeSliderView largeSlider;
      public SettingFragment() {
         // Required empty public constructor
@@ -51,22 +61,59 @@ public class SettingFragment extends Fragment {
             view = inflater.inflate(R.layout.fragment_setting, container, false);
             view.setFocusableInTouchMode(true);
             view.requestFocus();
-            view.setOnKeyListener(new View.OnKeyListener() {
-                @Override
-                public boolean onKey(View v, int keyCode, KeyEvent event) {
-                    if (keyCode == KeyEvent.KEYCODE_BACK) {
-                        Fragment newFragment;
-                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                        newFragment = new MainFragment().newInstance();
-                        transaction.replace(R.id.mainactivity, newFragment);
-                        transaction.commit();
-                        return true;
-                    } else {
-                        return false;
-                    }
+            Spinner spin = view.findViewById(R.id.spinner);
+
+            //Creating the ArrayAdapter instance having the accents list
+            ArrayAdapter aa = new ArrayAdapter(context, android.R.layout.simple_spinner_item, accents);
+            MySpinnerAdapter adapter = new MySpinnerAdapter(
+                    context,
+                    android.R.layout.simple_spinner_item,
+                    accents);
+            aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            //Setting the ArrayAdapter data on the Spinner
+            spin.setAdapter(adapter);
+            int selectedAccent = 0;
+            String accentStr = context.getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE).getString(
+                    "Accent", "US");
+            if (accentStr.equals("US")) {
+                selectedAccent = 0;
+            } else {
+                selectedAccent = 1;
+            }
+            spin.setSelection(selectedAccent);
+            spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                               @Override
+                                               public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                                   String accent = "US";
+                                                   if (id == 0) {
+                                                       accent = "US";
+                                                   } else {
+                                                       accent = "UK";
+                                                   }
+                                                   context.getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
+                                                           .edit()
+                                                           .putString("Accent", accent)
+                                                           .apply();
+                                               };
+                                               @Override
+                                               public void onNothingSelected(AdapterView<?> parent) {
+
+                                               }
+                                           });
+
+            view.setOnKeyListener((v, keyCode, event) -> {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    Fragment newFragment;
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    newFragment = new MainFragment().newInstance();
+                    transaction.replace(R.id.mainactivity, newFragment);
+                    transaction.commit();
+                    return true;
+                } else {
+                    return false;
                 }
             });
-            largeSlider = (RangeSliderView) view.findViewById(
+            largeSlider = view.findViewById(
                     R.id.rsv_speed);
             float speed = context.getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE).getFloat(
                     "SpeechSpeed", 1);
@@ -86,30 +133,27 @@ public class SettingFragment extends Fragment {
                 largeSlider.setInitialIndex(4);
             }
 
-            final RangeSliderView.OnSlideListener listener = new RangeSliderView.OnSlideListener() {
-                @Override
-                public void onSlide(int index) {
-                    float speed = Float.valueOf("0.0");
-                    if (index == 0) {
-                        speed = Float.parseFloat("0.25");
-                    }
-                    if (index == 1) {
-                        speed = Float.parseFloat("0.5");
-                    }
-                    if (index == 2) {
-                        speed = Float.parseFloat("1.0");
-                    }
-                    if (index == 3) {
-                        speed = Float.parseFloat("1.5");
-                    }
-                    if (index == 4) {
-                        speed = Float.parseFloat("2.0");
-                    }
-                    context.getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
-                            .edit()
-                            .putFloat("SpeechSpeed", speed)
-                            .apply();
+            final RangeSliderView.OnSlideListener listener = index -> {
+                float speed1 = Float.valueOf("0.0");
+                if (index == 0) {
+                    speed1 = Float.parseFloat("0.25");
                 }
+                if (index == 1) {
+                    speed1 = Float.parseFloat("0.5");
+                }
+                if (index == 2) {
+                    speed1 = Float.parseFloat("1.0");
+                }
+                if (index == 3) {
+                    speed1 = Float.parseFloat("1.5");
+                }
+                if (index == 4) {
+                    speed1 = Float.parseFloat("2.0");
+                }
+                context.getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
+                        .edit()
+                        .putFloat("SpeechSpeed", speed1)
+                        .apply();
             };
             largeSlider.setOnSlideListener(listener);
 
@@ -128,12 +172,4 @@ public class SettingFragment extends Fragment {
         super.onDestroy();
 
     }
-  /*  @Override
-    public void setMenuVisibility(final boolean visible) {
-        super.setMenuVisibility(visible);
-        if (visible) {
-            // ...
-        }
-    }
-    // ...*/
 }

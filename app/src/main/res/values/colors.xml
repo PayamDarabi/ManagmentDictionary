@@ -19,6 +19,7 @@
     <color name="backSearch">#777777</color>
 
     <color name="selectedLang">#FEA864</color>
+    <color name="gray_light">#cccccc</color>
 
     <!--    <color name="my_blue">#3498DB</color>
         <color name="my_green">#77D065</color>

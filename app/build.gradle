@@ -3,8 +3,6 @@ android {
     compileSdkVersion 33
     buildToolsVersion "30.0.3"
 
-
-
     defaultConfig {
         applicationId "com.managmentdic"
         minSdkVersion 19
@@ -14,7 +12,6 @@ android {
     }
     buildTypes {
         release {
-            signingConfig signingConfigs.release
             minifyEnabled true
             debuggable = false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -31,6 +28,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'com.github.channguyen:rsv:1.0.1'
 }
