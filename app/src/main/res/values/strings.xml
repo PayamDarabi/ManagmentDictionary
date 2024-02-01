@@ -6,6 +6,13 @@
  <string name="share_using"> دانلود نسخه آخر واژه نامه مدیریت از کافه بازار
 \n
         http://cafebazaar.ir/app/?id=com.managmentdic</string>
+ <string name="share_usingGoogle"> دانلود نسخه آخر واژه نامه مدیریت از گوگل
+\n
+        https://play.google.com/store/apps/details?id=</string>
+
+    <string name="sharevazheh_usingGoogle"> دانلود نسخه آخر دیکشنری تخصصی واژه از گوگل
+\n
+        https://play.google.com/store/apps/details?id=com.mr47.vazhehdictionary</string>
 
     <string name="searchhint">جستجو</string>
     <string name="downloadVazhed">دیکشنری واژه برای 38 رشته تخصصی</string>
@@ -15,6 +22,7 @@
     <string name="donat">حمایت از برنامه</string>
     <string name="sharee">معرفی به دوستان</string>
     <string name="comment">ثبت نظر</string>
+    <string name="commentSuccess">نظر شما با موفقیت ثبت شد</string>
     <string name="profile">واژه نامه</string>
     <string name="exit">بستن</string>
     <string name="about">ارتباط با توسعه دهنده</string>

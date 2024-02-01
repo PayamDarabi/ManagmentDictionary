@@ -20,6 +20,13 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.Task;
+import com.google.android.play.core.review.ReviewException;
+import com.google.android.play.core.review.ReviewInfo;
+import com.google.android.play.core.review.ReviewManager;
+import com.google.android.play.core.review.ReviewManagerFactory;
+import com.google.android.play.core.review.model.ReviewErrorCode;
 import com.managmentdic.dialogs.CmDialog;
 import com.managmentdic.dialogs.CustomDialogClass;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -152,37 +159,78 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         if (position == 6) {
-                            String shareBody = getResources().getString(R.string.share_using);
-                            Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                            sharingIntent.setType("text/plain");
-                            sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "دیکشنری تخصصی مدیریت");
-                            sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
-                            startActivity(Intent.createChooser(sharingIntent, "به اشتراک گذاری"));
+                            String shareBody = getResources().getString(R.string.share_usingGoogle);
+                          //  Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                          //  sharingIntent.setType("text/plain");
+                           // sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "دیکشنری تخصصی مدیریت");
+                         //   sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+                       //     startActivity(Intent.createChooser(sharingIntent, "به اشتراک گذاری"));
+
+                            Intent sendIntent = new Intent();
+                            sendIntent.setAction(Intent.ACTION_SEND);
+                            sendIntent.putExtra(Intent.EXTRA_SUBJECT, "دیکشنری تخصصی مدیریت");
+                            sendIntent.putExtra(Intent.EXTRA_TEXT,
+                                    shareBody   + BuildConfig.APPLICATION_ID);
+                            sendIntent.setType("text/plain");
+                            startActivity(Intent.createChooser(sendIntent, "به اشتراک گذاری"));
                         }
                         if (position == 7) {
-                            if (isBazaarInstalled()) {
-                                Intent intent = new Intent(Intent.ACTION_EDIT);
-                                intent.setData(Uri.parse("bazaar://details?id=" + getPackageName()));
-                                intent.setPackage("com.farsitel.bazaar");
-                                startActivity(intent);
-                                getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
-                                        .edit()
+                            //if (isBazaarInstalled()) {
+                              //  Intent intent = new Intent(Intent.ACTION_EDIT);
+                               // intent.setData(Uri.parse("bazaar://details?id=" + getPackageName()));
+                               // intent.setPackage("com.farsitel.bazaar");
+                               // startActivity(intent);
+                            ReviewManager manager = ReviewManagerFactory.create(this);
+                            Task<ReviewInfo> request = manager.requestReviewFlow();
+
+                            request.addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    // We can get the ReviewInfo object
+                                    ReviewInfo reviewInfo = task.getResult();
+                                    Task<Void> flow = manager.launchReviewFlow(this, reviewInfo);
+                                    flow.addOnCompleteListener(task2 -> {
+                                        Toast.makeText(this, getString(R.string.commentSuccess), Toast.LENGTH_SHORT).show();
+
+                                        // The flow has finished. The API does not indicate whether the user
+                                        // reviewed or not, or even whether the review dialog was shown. Thus, no
+                                        // matter the result, we continue our app flow.
+                                    });
+                                } else {
+                                    // There was some problem, log or handle the error code.
+                                    @ReviewErrorCode int reviewErrorCode = ((ReviewException) task.getException()).getErrorCode();
+                                }
+                            });
+                            getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
+                                      .edit()
                                         .putBoolean("isCommented", true)
                                         .apply();
-                            } else {
-                                Toast.makeText(this, getString(R.string.bazar_not_installed), Toast.LENGTH_SHORT).show();
-                            }
+                            //} else {
+                              //  Toast.makeText(this, getString(R.string.bazar_not_installed), Toast.LENGTH_SHORT).show();
+                          //  }
                         }
 
                         if (position == 8) {
-                            if (isBazaarInstalled()) {
-                                Intent intent = new Intent(Intent.ACTION_VIEW);
-                                intent.setData(Uri.parse("bazaar://details?id=com.mr47.vazhehdictionary"));
-                                intent.setPackage("com.farsitel.bazaar");
-                                startActivity(intent);
-                            } else {
-                                Toast.makeText(this, getString(R.string.bazar_not_installed), Toast.LENGTH_SHORT).show();
+                            String shareBody = getResources().getString(R.string.sharevazheh_usingGoogle);
+                            //  Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                            //  sharingIntent.setType("text/plain");
+                            // sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "دیکشنری تخصصی مدیریت");
+                            //   sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+                            //     startActivity(Intent.createChooser(sharingIntent, "به اشتراک گذاری"));
+
+                            final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+                            try {
+                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.mr47.vazhehdictionary")));
+                            } catch (android.content.ActivityNotFoundException anfe) {
+                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.mr47.vazhehdictionary")));
                             }
+                            //if (isBazaarInstalled()) {
+                              //  Intent intent = new Intent(Intent.ACTION_VIEW);
+                              //  intent.setData(Uri.parse("bazaar://details?id=com.mr47.vazhehdictionary"));
+                              //  intent.setPackage("com.farsitel.bazaar");
+                              //  startActivity(intent);
+                          //  } else {
+                           ///     Toast.makeText(this, getString(R.string.bazar_not_installed), Toast.LENGTH_SHORT).show();
+                          //  }
                         }
                         result.closeDrawer();
                         return true;
